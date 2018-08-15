@@ -10,4 +10,3 @@ Requirements: Theano 1.0, Python 2.x
     python demo_mrfs.py --grid 5 --n_samples 100
 
 
-#### MIT License
