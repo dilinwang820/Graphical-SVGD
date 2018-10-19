@@ -45,6 +45,21 @@ def poly_kernel(x, e=1e-8):
     return kxy, dxkxy
 
 
+def imq_kernel(x, h=-1):
+    H = sqr_dist(x, x)
+    if h == -1:
+        h = median_distance(H)
+
+    kxy = 1. / T.sqrt(1. + H / h) 
+
+    dk = -.5 * kxy / (1. + H / h)
+    dxkxy = T.dot(dk, x)
+    sumkxy = T.sum(dk, axis=1, keepdims=True)
+    dxkxy = (dxkxy - x * sumkxy) * 2. / h
+
+    return kxy, dxkxy
+
+
 def rbf_kernel(x):
     H = sqr_dist(x, x)
     h = median_distance(H)
